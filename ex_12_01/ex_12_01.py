@@ -17,7 +17,6 @@ import socket
 
 url = input("Enter URL: ")
 
-
 try:
     host = url.split("/")[2]
     mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
