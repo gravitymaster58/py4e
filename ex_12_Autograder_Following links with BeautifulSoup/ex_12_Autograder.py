@@ -1,4 +1,4 @@
-#Incomplete
+#Complete
 #Following Links in Python
 
 # In this assignment you will write a Python program that expands
@@ -17,28 +17,39 @@
 import urllib.request, urllib.parse, urllib.error
 from bs4 import BeautifulSoup
 import ssl
-count = 0
+
+tag_list= list()
 
 # Ignore SSL certificate errors
 ctx = ssl.create_default_context()
 ctx.check_hostname = False
 ctx.verify_mode = ssl.CERT_NONE
 
-url = input('Enter - ')
+url = input('Enter URL: ')
 html = urllib.request.urlopen(url, context=ctx).read()
 soup = BeautifulSoup(html, 'html.parser')
 
-# Retrieve all of the anchor tags
+# Retrieve all anchor tags
 tags = soup('a')
 
-print(tags)
-# tag_list= list()
-# for tag in tags:
-#     print("Retrieving: ", tag['href'])
+count = int(input("Enter count: "))
+position = int(input("Enter position: "))
 
-# count = input("Enter count: ")
-# position = input("Enter position: ")
+for tag in tags:
+    # print("Retrieving: ", tag['href'])
+    tag_list.append(tag['href'])
+print("Retrieving: ", url)
+counter = 0
 
+while counter < count:
+    for tag in tags:
+        tag_list.append(tag['href'])
 
+    print("Retrieving: ", tag_list[position - 1])
+    url = tag_list[position - 1]
+    html = urllib.request.urlopen(url, context=ctx).read()
+    soup = BeautifulSoup(html, 'html.parser')
+    tags = soup('a')
+    tag_list = list()
 
-# while count <4:
+    counter += 1
